@@ -1,22 +1,20 @@
 import { Slider } from "infinite-react-carousel/lib";
 import React from "react";
-
+import Button from "../../Component/Button/Button";
 const HomeSlider = () => {
   const listImage = [
     {
       id: 1,
-      url: "https://phunugioi.com/wp-content/uploads/2020/02/anh-phong-canh-hung-vy-nui-va-song.jpg",
+      url: "https://pastaxi-manager.onepas.vn/content/uploads/articles/2amthuc/nhahang/top10nhahangvietnam/top-10-nha-hang-viet-nam-ngon-noi-tieng-nhat-o-ha-noi-3.jpg",
 
-      title: "New image",
-      content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum cumque veniam error modi in aut nemo facilis,",
+      title: "Ảnh món ăn Việt Nam",
+      content: "Chia sẻ hướng dẫn nấu món ăn truyền thống của việt nam ",
     },
     {
       id: 2,
-      url: "https://2.bp.blogspot.com/-ZHxPeVGAFBE/WdZPErRG3SI/AAAAAAAAETI/7q__R5Xj36UhWk2lg2p9KbStwghB7UmpQCLcBGAs/s1600/tranh-kinh-phong-canh-6.jpg",
-      title: "New image",
-      content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum cumque veniam error modi in aut nemo facilis,",
+      url: "https://hudse.com.vn/wp-content/uploads/2020/06/Quy-Nh%C6%A1n-.jpg",
+      title: "Chia sẻ trải nghiệm du lịch quy nhơn",
+      content: "3 ngày hai đêm ở Quy Nhơm với các trải nghiệm thú vị ",
     },
     {
       id: 3,
@@ -62,7 +60,7 @@ const HomeSlider = () => {
     prevArrow: <ion-icon name="chevron-back-sharp" id="icon"></ion-icon>,
   };
   return (
-    <div className="slider">
+    <div className="mt-1 slider">
       <Slider {...settings}>
         {listImage.map((img) => (
           <div className="box-img" key={img.id}>
@@ -71,6 +69,9 @@ const HomeSlider = () => {
               <div>
                 <h2>{img.title}</h2>
                 <p>{img.content}</p>
+                <Button className="max-w-[200px] font-semibold opacity-0 translate-y-[500px] mx-0 flex justify-start see">
+                  See more +
+                </Button>
               </div>
             </div>
           </div>

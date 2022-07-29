@@ -54,7 +54,7 @@ const SignInPage = () => {
     mode: "onChange",
   });
   const [userList, setUserList] = useState([]);
-  const { setValue, userInfo } = useAuth();
+  const { setValue, setUserInfo, userInfo } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -67,6 +67,7 @@ const SignInPage = () => {
       setUserList(results);
       // console.log(results);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // console.log(userList);
   const handleLognIn = async (values) => {
@@ -76,16 +77,13 @@ const SignInPage = () => {
     ) {
       toast.warning("Tài khoản hoặc mật khẩu ko đúng !");
     }
-    // if (!isSubmitting) {
-    //   toast.warning("Sai tài khoản hoặc mật khẩu!");
-    // }
     userList.forEach(async (user) => {
       if (user.email === values.email && user.password === values.password) {
         const colRef = collection(db, "users");
         const q = query(colRef, where("email", "==", values.email));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-          setValue({ id: doc.id, ...doc.data() });
+          setUserInfo({ id: doc.id, ...doc.data() });
         });
         navigate("/");
       } else {
@@ -99,16 +97,16 @@ const SignInPage = () => {
       <form
         autoComplete="off"
         onSubmit={handleSubmit(handleLognIn)}
-        className="relative mx-auto form top-6 "
+        className="relative mx-auto form "
       >
-        <Field className="mt-5 email">
+        <Field className="email">
           <Input name="email" control={control} type="text"></Input>
           <Label htmlFor="email">Email</Label>
         </Field>
         {errors.email && (
           <p className="text-sm text-red-600">{errors.email.message}</p>
         )}
-        <Field className="mt-5 password">
+        <Field className="mt-4 password">
           <InputPasswordToggle control={control}></InputPasswordToggle>
         </Field>
         {errors.password && (
@@ -116,12 +114,16 @@ const SignInPage = () => {
         )}
         <div className="flex items-center mt-2 gap-x-1 have-account">
           <p> Bạn chưa có tài khoản đăng ký tại đây ? </p>
-          <Link to={"/registerPage"} className="text-red-400 ">
+          <Link to={"/registerPage"} className="font-semibold text-purple-500">
             Register
           </Link>
         </div>
         <Button type="submit">
-          {isSubmitting ? <LoadingSpinner></LoadingSpinner> : <p> Register</p>}
+          {isSubmitting ? (
+            <LoadingSpinner></LoadingSpinner>
+          ) : (
+            <p className="text-base"> Register</p>
+          )}
         </Button>
       </form>
     </AuthenticationPage>

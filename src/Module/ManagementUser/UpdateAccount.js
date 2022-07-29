@@ -21,7 +21,7 @@ import { useAuth } from "../../Contexts/auth-context";
 const UpdateAccount = () => {
   const [params] = useSearchParams();
   const Navigate = useNavigate();
-  const { setValue: setUser } = useAuth();
+  const { setUserInfo: setUser } = useAuth();
   const schame = yup.object({
     fullname: yup.string().required("please enter your fullname ..."),
     username: yup.string().required("please enter your username ..."),
@@ -77,6 +77,7 @@ const UpdateAccount = () => {
   const handleUpdateUser = async (values) => {
     try {
       const colRef = doc(db, "users", userId);
+      // if(userId=== )
       await updateDoc(colRef, { ...values, avatar: image });
       setUser({ id: userId, ...values, avatar: image });
       toast.success("update succcessflly!");

@@ -36,31 +36,10 @@ function AuthProvider(props) {
   const [userInfo, setUserInfo] = useState(storedValue);
 
   useEffect(() => {
-    setValue(userInfo);
+    setValue({ ...userInfo });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo]);
-  // console.log(storedValue);
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       const colRef = query(
-  //         collection(db, "users"),
-  //         where("email", "==", user.email)
-  //       );
-  //       onSnapshot(colRef, (snapShot) => {
-  //         snapShot.forEach((doc) => {
-  //           setUserInfo({
-  //             ...user,
-  //             ...doc.data(),
-  //           });
-  //         });
-  //       });
-  //       setUserInfo(user);
-  //     } else {
-  //       setUserInfo(null);
-  //     }
-  //   });
-  // }, []);
+
   const value = { userInfo, setUserInfo, setValue };
   return <AuthContext.Provider value={value} {...props}></AuthContext.Provider>;
 }

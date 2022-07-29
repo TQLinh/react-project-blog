@@ -20,10 +20,11 @@ const ListPosts = () => {
     fetchData();
   }, []);
   return (
-    <div className="flex flex-wrap items-center justify-evenly">
+    <div className="container flex flex-wrap justify-evenly">
       {data?.length > 0 &&
-        data.map((item, index) => {
-          return <FavoriteItem key={index} data={item}></FavoriteItem>;
+        data.map((item) => {
+          if (Number(item.status) === 2) return null;
+          return <FavoriteItem key={item.id} data={item}></FavoriteItem>;
         })}
     </div>
   );

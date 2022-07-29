@@ -30,7 +30,7 @@ const Button = ({
       onClick={onClick}
       {...Rest}
       type={type}
-      className={`button flex items-center justify-center w-full gap-1 p-4 mx-auto mt-3 font-semibold text-white rounded-sm bg-black ${className}`}
+      className={`button flex items-center justify-center w-full gap-1 p-4 mx-auto mt-3 font-semibold text-white rounded-sm ${className}`}
     >
       {child}
     </button>

@@ -12,7 +12,7 @@ const PostTime = ({
       className={`inline-block items-center  text-sm font-semibold text-white ${className}`}
     >
       <span className="post_time">{date}</span>
-      <span className="inline-block w-1 h-1 mx-2 bg-white rounded-full post-dot"></span>
+      <span className="inline-block w-1 h-1 mx-2 bg-gray-600 rounded-full post-dot"></span>
       <Link to={to}>
         <span className="post-author">{authorName}</span>
       </Link>

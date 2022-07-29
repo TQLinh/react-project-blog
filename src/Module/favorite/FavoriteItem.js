@@ -13,17 +13,19 @@ const FavoriteItem = ({ data, updatepost }) => {
   const { toggleFavourite } = useToggle();
   const formatDate = date.toLocaleDateString("vi-VI");
   return (
-    <div className="relative flex items-center mt-2 w-[400px] h-[250px] overflow-hidden rounded-sm">
-      <div className="w-full h-full ">
-        <img src={data.image} className="h-full" alt="" />
+    <div className="relative mt-4 w-[350px] bg-slate-200 rounded-sm shadow-xl p-1">
+      <div className="w-full h-[200px] overflow-hidden rounded-md">
+        <img src={data.image} className="w-full h-full" alt="" />
       </div>
-      <div className="absolute flex flex-col w-full p-3 top-1">
+      <div className="flex flex-col w-full p-3 ">
         <div className="flex items-center justify-between">
-          <PostCategory>{data?.category.name}</PostCategory>
+          <PostCategory className="!text-black">
+            {data?.category.name}
+          </PostCategory>
           <PostTime
             date={formatDate}
             authorName={data.user.fullname}
-            className=""
+            className="text-black"
           ></PostTime>
         </div>
         <div
@@ -36,22 +38,25 @@ const FavoriteItem = ({ data, updatepost }) => {
               onClick={() =>
                 navigate(`/AccountManagement/update-post?id=${data.id}`)
               }
-              className="p-1 font-semibold text-white bg-pink-300 rounded-md"
+              className="p-1 font-semibold text-black bg-pink-300 rounded-md"
             >
               Update post
             </div>
           )}
+        </div>
+        <div className="absolute top-2x right-2x">
           <IconFavourite
             favourite={data?.favourite}
             onClick={() => toggleFavourite(data.id)}
           ></IconFavourite>
         </div>
-      </div>
-      <div
-        onClick={() => navigate(`/${data.slug}`)}
-        className="absolute p-5 text-2xl font-bold text-white"
-      >
-        {data.title}
+        <div
+          onClick={() => navigate(`/${data.slug}`)}
+          title={data.title}
+          className="overflow-x-hidden text-2xl font-bold text-black h-[60px] text-ellipsis whitespace-nowrap"
+        >
+          {data.title}
+        </div>
       </div>
     </div>
   );

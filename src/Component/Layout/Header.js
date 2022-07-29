@@ -4,26 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Contexts/auth-context";
 
 const Header = () => {
-  const Navigate = useNavigate();
-  const { userInfo, setValue } = useAuth();
+  const { userInfo } = useAuth();
   console.log(userInfo);
   useEffect(() => {
     document.title = "Personal-post-Home";
   }, []);
 
-  const Handlelogout = () => {
-    setValue(null);
-    Navigate("/signInPage");
-  };
-
   return (
-    <div className="bg-gradient-to-tr to-[#d0c698] from-[#ddade5]">
+    <div className="bg-white">
       <div className="container header_main items-center justify-between flex max-h-[100px]">
         <Link to="/">
           <div className="flex items-center justify-center w-full ">
             <div className="block w-20 h-20">
               <img
-                srcSet="/logo_item.png "
+                srcSet="/logoPen.png "
                 alt="logo item "
                 className="object-cover w-full h-full logo"
               />
@@ -39,34 +33,27 @@ const Header = () => {
           </div>
         </Link>
         {userInfo?.email ? (
-          <div className="flex items-center justify-between gap-2">
-            <div className="w-10 h-10 overflow-hidden rounded-full">
-              <img
-                className="h-full"
-                title={userInfo.email}
-                src={userInfo.avatar}
-                alt="Ảnh đại điện"
-              />
-            </div>
+          <div className="flex items-center justify-between gap-1x">
             <Link
+              className="flex items-center gap-x-1x py-1 px-2x rounded-lg bg-gradient-to-br from-[#9e6ef3] to-[#56e6e9] "
               to={
-                userInfo.role === 1 ? "/manage/user" : "/AccountManagement/user"
+                Number(userInfo.role) === 1
+                  ? "/manage/user"
+                  : "/AccountManagement/user"
               }
             >
-              <button className="px-4 py-3 font-semibold text-pink-500 bg-blue-500 rounded-md">
+              <div className="w-10 h-10 overflow-hidden rounded-full">
+                <img
+                  className="h-full"
+                  title={userInfo.email}
+                  src={userInfo.avatar}
+                  alt="Ảnh đại điện"
+                />
+              </div>
+              <button className="font-semibold text-white rounded-md">
                 Create post
               </button>
             </Link>
-            <div
-              onClick={() => Handlelogout()}
-              className="flex items-center gap-1 p-3 font-semibold text-white rounded-md justify-cente bg-slate-900"
-            >
-              <p className="">logOut</p>
-              <ion-icon
-                style={{ fontSize: "30px" }}
-                name="log-out-outline"
-              ></ion-icon>
-            </div>
           </div>
         ) : (
           <Link to="/signInPage">

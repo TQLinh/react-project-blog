@@ -6,7 +6,9 @@ import Sidebar from "./Sidebar";
 const ManagementLayout = () => {
   return (
     <div className="management">
-      <ManagementHeader className="text-xl">Tạo bài viết mới</ManagementHeader>
+      <ManagementHeader className="text-xl">
+        Account Management
+      </ManagementHeader>
       <div className="management-main">
         <Sidebar></Sidebar>
         <div className="management-children">

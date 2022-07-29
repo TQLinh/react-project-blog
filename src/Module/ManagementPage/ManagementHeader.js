@@ -11,7 +11,11 @@ const ManagementHeader = ({ children, className = "" }) => {
     <div
       className={`flex items-center justify-end gap-3 p-2 h-[100px] bg-white shadow-xl ${className}`}
     >
-      <Button to="/" type="button" className={"header_button text-xl"}>
+      <Button
+        to="/accountManagement/user"
+        type="button"
+        className={"header_button text-xl"}
+      >
         {children}
       </Button>
       <div className="header-avatar w-[50px] h-[50px] overflow-hidden rounded-full">

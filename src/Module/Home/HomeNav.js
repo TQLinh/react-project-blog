@@ -1,13 +1,21 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Contexts/auth-context";
 import MenuLink from "../MenuLink/MenuLink";
 
 const menu = MenuLink;
 const HomeNav = () => {
+  const Navigate = useNavigate();
+  const { userInfo, setUserInfo } = useAuth();
+  console.log(userInfo);
+  const Handlelogout = () => {
+    setUserInfo(null);
+    Navigate("/signInPage");
+  };
   return (
-    <div className="h-[50px] flex  bg-gradient-to-l to-[#61ce1f] gap-1 from-orange-400">
-      <ul className="container flex items-center justify-between nav">
-        <div className="flex items-center ">
+    <div className="flex items-center gap-1 bg-white shadow-xl">
+      <div className="container flex items-center justify-between nav">
+        <ul className="flex items-center ">
           {menu.map((item) => {
             const { url, title, icon } = item;
             return (
@@ -15,28 +23,28 @@ const HomeNav = () => {
                 key={item.id}
                 to={url}
                 className={({ isActive }) =>
-                  isActive ? " bg-[#0a7960] rounded" : ""
+                  isActive
+                    ? "text-gray-900 font-semibold rounded"
+                    : "text-gray-500"
                 }
               >
-                <li className="flex items-center gap-1 px-2 py-1 text-xl text-white">
+                <li className="flex items-center gap-1 px-2 text-xl">
                   {icon}
                   <p>{title}</p>
                 </li>
               </NavLink>
             );
           })}
-        </div>
-        <div className="relative flex items-center ">
-          <input
-            type="text"
-            className="flex-1 p-1 border-2 border-gray-500 rounded-md "
-            placeholder="search"
-          />
-          <div className="absolute right-[1px] flex items-center p-[8px] text-xl rounded-md top-2/4 bg-slate-500 -translate-y-2/4">
-            <ion-icon name="search-outline"></ion-icon>
+        </ul>
+        {userInfo.email && (
+          <div
+            onClick={() => Handlelogout()}
+            className="flex items-center text-xl font-semibold text-black rounded-md "
+          >
+            LogOut
           </div>
-        </div>
-      </ul>
+        )}
+      </div>
     </div>
   );
 };

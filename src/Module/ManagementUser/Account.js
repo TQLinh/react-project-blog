@@ -117,7 +117,7 @@ const Account = () => {
               Role:{" "}
             </span>
             <span className="px-2 py-1 bg-white rounded-md">
-              {renderRole(user?.role)}
+              {renderRole(Number(user?.role))}
             </span>
           </BoxTitleUser>
           <BoxTitleUser className="text-xl font-semibold">
