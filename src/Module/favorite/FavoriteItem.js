@@ -29,7 +29,7 @@ const FavoriteItem = ({ data, updatepost }) => {
           ></PostTime>
         </div>
         <div
-          className={`flex mt-3 items-center cursor-pointer ${
+          className={`flex items-center cursor-pointer absolute top-2x left-2x ${
             updatepost ? "justify-between" : "justify-end"
           }`}
         >
@@ -53,7 +53,7 @@ const FavoriteItem = ({ data, updatepost }) => {
         <div
           onClick={() => navigate(`/${data.slug}`)}
           title={data.title}
-          className="overflow-x-hidden text-2xl font-bold text-black h-[60px] text-ellipsis whitespace-nowrap"
+          className="overflow-x-hidden text-2xl mt-2x font-bold text-black h-[60px] text-ellipsis whitespace-nowrap"
         >
           {data.title}
         </div>

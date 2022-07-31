@@ -12,8 +12,9 @@ const HomeNav = () => {
     setUserInfo(null);
     Navigate("/signInPage");
   };
+
   return (
-    <div className="flex items-center gap-1 bg-white shadow-xl">
+    <div className="flex items-center gap-1 py-1 bg-white shadow-xl">
       <div className="container flex items-center justify-between nav">
         <ul className="flex items-center ">
           {menu.map((item) => {
@@ -24,7 +25,7 @@ const HomeNav = () => {
                 to={url}
                 className={({ isActive }) =>
                   isActive
-                    ? "text-gray-900 font-semibold rounded"
+                    ? "text-sky-600 font-semibold rounded"
                     : "text-gray-500"
                 }
               >
@@ -36,10 +37,10 @@ const HomeNav = () => {
             );
           })}
         </ul>
-        {userInfo.email && (
+        {userInfo?.email && (
           <div
             onClick={() => Handlelogout()}
-            className="flex items-center text-xl font-semibold text-black rounded-md "
+            className="flex items-center text-xl font-semibold rounded-md nav text-sky-600 "
           >
             LogOut
           </div>

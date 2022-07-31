@@ -1,23 +1,24 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Contexts/auth-context";
 
 const Header = () => {
   const { userInfo } = useAuth();
-  console.log(userInfo);
+  const navigate = useNavigate();
   useEffect(() => {
     document.title = "Personal-post-Home";
   }, []);
-
+  if (!userInfo?.email) {
+    navigate("/signInPage");
+  }
   return (
-    <div className="bg-white">
+    <div className="bg-white shadow-md">
       <div className="container header_main items-center justify-between flex max-h-[100px]">
         <Link to="/">
-          <div className="flex items-center justify-center w-full ">
-            <div className="block w-20 h-20">
+          <div className="flex items-center justify-center w-full gap-2 ">
+            <div className="block w-6x h-6x">
               <img
-                srcSet="/logoPen.png "
+                srcSet="/iconb.ico "
                 alt="logo item "
                 className="object-cover w-full h-full logo"
               />
@@ -26,7 +27,7 @@ const Header = () => {
               <h1 className="block text-3xl font-bold text-white heading">
                 Perspnal-Post
               </h1>
-              <p className="text-sm text-[#cc07d5] ">
+              <p className="text-sm text-[#37d1f4] font-semibold">
                 Write down what you want to send to everyone
               </p>
             </div>
@@ -57,7 +58,7 @@ const Header = () => {
           </div>
         ) : (
           <Link to="/signInPage">
-            <button className="px-4 py-3 font-semibold text-pink-500 bg-blue-500 rounded-md">
+            <button className="px-4 py-3 font-semibold text-white bg-gradient-to-br from-[#9e6ef3] to-[#56e6e9] rounded-md">
               LognIn
             </button>
           </Link>

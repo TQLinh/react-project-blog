@@ -18,6 +18,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "../../firebase-config/firebase-config";
+import { useAuth } from "../../Contexts/auth-context";
 
 const UserUpdate = () => {
   const schame = yup.object({
@@ -74,11 +75,14 @@ const UserUpdate = () => {
   const watchStatus = watch("status");
   const watchRole = watch("role");
   const userId = params.get("id");
-  console.log("userId: ", userId);
+  const { userInfo, setUserInfo } = useAuth();
   const handleUpdateUser = async (values) => {
     try {
       const colRef = doc(db, "users", userId);
       await updateDoc(colRef, { ...values, avatar: image });
+      if (userInfo.id === userId) {
+        setUserInfo({ ...userInfo, ...values, avatar: image });
+      }
       toast.success("update succcessflly!");
       navigate("/manage/user");
     } catch (error) {

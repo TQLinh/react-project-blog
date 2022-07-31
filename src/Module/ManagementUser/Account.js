@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Contexts/auth-context";
 import { db } from "../../firebase-config/firebase-config";
+import HomeFooter from "../Home/HomeFooter";
+import Managementheading from "../ManagementPage/Managementheading";
 import BoxTitleUser from "./BoxTitile/BoxTitleUser";
 const size = 3;
 const Account = () => {
@@ -74,79 +76,88 @@ const Account = () => {
     });
   if (!userInfo) return;
   return (
-    <div className="flex gap-5 transition-all top-4">
-      <div className="relative zoom w-full max-w-[600px]" ref={boxZoom}>
-        <div
-          ref={refEven}
-          className="box-img  max-w-[600px] overflow-hidden rounded-xl max-h-[400px] w-full h-full"
-        >
-          <img ref={refImg} src={user?.avatar} alt="" className="h-full" />{" "}
-        </div>
-        <div ref={refZoom} className="magnifying_glass hide"></div>
-      </div>
-      <div className="flex-1 p-2 bg-purple-200 rounded-xl">
-        <div>
-          <BoxTitleUser className="!text-4xl font-bold ">
-            <span>Full Name:</span>
-            <span>{user?.fullname}</span>
-          </BoxTitleUser>
-          <BoxTitleUser className="text-xl font-semibold">
-            <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
-              Email:{" "}
-            </span>
-            <span className="px-2 py-1 bg-white rounded-md">{user?.email}</span>
-          </BoxTitleUser>
-          <BoxTitleUser className="text-xl font-semibold">
-            <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
-              Username:{" "}
-            </span>
-            <span className="px-2 py-1 bg-white rounded-md">
-              {user?.username}
-            </span>
-          </BoxTitleUser>
-          <BoxTitleUser className="text-xl font-semibold">
-            <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
-              Password:{" "}
-            </span>
-            <span className="px-2 py-1 bg-white rounded-md">
-              {user?.password}
-            </span>
-          </BoxTitleUser>
-          <BoxTitleUser className="text-xl font-semibold">
-            <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
-              Role:{" "}
-            </span>
-            <span className="px-2 py-1 bg-white rounded-md">
-              {renderRole(Number(user?.role))}
-            </span>
-          </BoxTitleUser>
-          <BoxTitleUser className="text-xl font-semibold">
-            <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
-              Status:{" "}
-            </span>
-            <span className="px-2 py-1 bg-white rounded-md">
-              {renderStatus(user?.status)}
-            </span>
-          </BoxTitleUser>
-          <BoxTitleUser className="text-xl font-semibold">
-            <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
-              Ngày đăng ký tài khoản:
-            </span>
-            <span className="px-2 py-1 bg-white rounded-md">{date}</span>
-          </BoxTitleUser>
-        </div>
-        <div className="flex-1 ">
-          <span
-            className="flex justify-center flex-1 w-full p-4 text-2xl font-bold text-center text-white bg-pink-500 rounded-xl"
-            onClick={() =>
-              navigate(`/AccountManagement/updateAccount?id=${user?.id}`)
-            }
+    <>
+      <Managementheading
+        title="Information user"
+        desc="User Personal Information"
+      ></Managementheading>
+      <div className="flex gap-5 transition-all top-4">
+        <div className="relative zoom w-full max-w-[600px]" ref={boxZoom}>
+          <div
+            ref={refEven}
+            className="box-img  max-w-[600px] overflow-hidden rounded-xl max-h-[400px] w-full h-full"
           >
-            Update User
-          </span>
+            <img ref={refImg} src={user?.avatar} alt="" className="h-full" />{" "}
+          </div>
+          <div ref={refZoom} className="magnifying_glass hide"></div>
         </div>
+        <div className="flex-1 p-2 bg-blue-200 rounded-sm">
+          <div>
+            <BoxTitleUser className="!text-4xl font-bold ">
+              <span>Full Name:</span>
+              <span>{user?.fullname}</span>
+            </BoxTitleUser>
+            <BoxTitleUser className="text-xl font-semibold">
+              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+                Email:{" "}
+              </span>
+              <span className="px-2 py-1 bg-white rounded-md">
+                {user?.email}
+              </span>
+            </BoxTitleUser>
+            <BoxTitleUser className="text-xl font-semibold">
+              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+                Username:{" "}
+              </span>
+              <span className="px-2 py-1 bg-white rounded-md">
+                {user?.username}
+              </span>
+            </BoxTitleUser>
+            <BoxTitleUser className="text-xl font-semibold">
+              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+                Password:{" "}
+              </span>
+              <span className="px-2 py-1 bg-white rounded-md">
+                {user?.password}
+              </span>
+            </BoxTitleUser>
+            <BoxTitleUser className="text-xl font-semibold">
+              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+                Role:{" "}
+              </span>
+              <span className="px-2 py-1 bg-white rounded-md">
+                {renderRole(Number(user?.role))}
+              </span>
+            </BoxTitleUser>
+            <BoxTitleUser className="text-xl font-semibold">
+              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+                Status:{" "}
+              </span>
+              <span className="px-2 py-1 bg-white rounded-md">
+                {renderStatus(user?.status)}
+              </span>
+            </BoxTitleUser>
+            <BoxTitleUser className="text-xl font-semibold">
+              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+                Ngày đăng ký tài khoản:
+              </span>
+              <span className="px-2 py-1 bg-white rounded-md">{date}</span>
+            </BoxTitleUser>
+          </div>
+          <div className="flex-1 ">
+            <span
+              className="flex justify-center flex-1 w-full p-3 mt-2 text-xl font-bold text-center text-sky-900  bg-gradient-to-tl border-b-4 border-blue-500 from-[#1fdbe2] to-[#2882ea] rounded-xl"
+              onClick={() =>
+                navigate(`/AccountManagement/updateAccount?id=${user?.id}`)
+              }
+            >
+              Update User
+            </span>
+          </div>
+        </div>
+        <HomeFooter></HomeFooter>
       </div>
-    </div>
+    </>
   );
 };
 

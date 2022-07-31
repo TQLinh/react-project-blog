@@ -27,11 +27,12 @@ import Field from "../../Component/Field/Field";
 import FieldCheckboxes from "../../Component/Field/FieldCheckboxes";
 import Input from "../../Component/Input/Input";
 import Label from "../../Component/Label/Label";
-import Toggle from "../../Component/toggle/Toggle";
 import { useAuth } from "../../Contexts/auth-context";
 import { db } from "../../firebase-config/firebase-config";
 import ImageUpload from "../../Images/ImageUpload";
 import useFirebaseImage from "../../Hooks/useHandleImage";
+import Managementheading from "../ManagementPage/Managementheading";
+import LoadingSpinner from "../../Component/Loading/LoadingSpinner";
 
 const UserCreatePost = () => {
   const { userInfo } = useAuth();
@@ -186,7 +187,10 @@ const UserCreatePost = () => {
   const watchStatus = watch("status");
   return (
     <div>
-      {" "}
+      <Managementheading
+        title="Create Post"
+        desc="Create and share posts"
+      ></Managementheading>
       <form autoComplete="off" onSubmit={handleSubmit(addPostHandler)}>
         <div className="grid grid-cols-2 mb-10 gap-x-10">
           <div>
@@ -259,24 +263,9 @@ const UserCreatePost = () => {
           </Field>
         </div>
         <div className="grid grid-cols-2 mt-3 mb-10 gap-x-10">
-          {/* <Field className="flex flex-col">
-            <label className="font-medium text-black">Feature post</label>
-            <Toggle
-              on={watchHot === true}
-              onClick={() => setValue("hot", !watchHot)}
-            ></Toggle>
-          </Field> */}
           <Field>
             <label className="font-medium text-black">Status</label>
             <FieldCheckboxes className="flex !flex-row">
-              {/* <Radio
-                name="status"
-                control={control}
-                checked={Number(watchStatus) === postStaus.APPROVED}
-                value={postStaus.APPROVED}
-              >
-                Approved
-              </Radio> */}
               <Radio
                 name="status"
                 disabled
@@ -286,19 +275,11 @@ const UserCreatePost = () => {
               >
                 Pending
               </Radio>
-              {/* <Radio
-                name="status"
-                control={control}
-                checked={Number(watchStatus) === postStaus.REJECT}
-                value={postStaus.REJECT}
-              >
-                Reject
-              </Radio> */}
             </FieldCheckboxes>
           </Field>
         </div>
         <Button type="submit" className={"w-[200px]"}>
-          Add post new
+          {!isSubmitting ? " Add post new" : <LoadingSpinner></LoadingSpinner>}
         </Button>
       </form>
     </div>

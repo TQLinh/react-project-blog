@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { useAuth } from "../../Contexts/auth-context";
 const ManagementHeader = ({ children, className = "" }) => {
   const { userInfo } = useAuth();
-  // console.log(userInfo);
   const { avatar, email } = userInfo;
   console.log("avatar: ", avatar);
   return (

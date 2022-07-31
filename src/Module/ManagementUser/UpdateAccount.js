@@ -18,6 +18,7 @@ import { db } from "../../firebase-config/firebase-config";
 import { toast } from "react-toastify";
 import InputPasswordToggle from "../../Component/Input/InputPasswordToggle";
 import { useAuth } from "../../Contexts/auth-context";
+import Managementheading from "../ManagementPage/Managementheading";
 const UpdateAccount = () => {
   const [params] = useSearchParams();
   const Navigate = useNavigate();
@@ -108,10 +109,10 @@ const UpdateAccount = () => {
   if (!userId) return null;
   return (
     <div>
-      {/* <Managementheading
-        title="Manage update User"
-        desc="Manage update your user"
-      ></Managementheading> */}
+      <Managementheading
+        title="Update user"
+        desc={`Update user id: ${userId}`}
+      ></Managementheading>
 
       <form autoComplete="off" onSubmit={handleSubmit(handleUpdateUser)}>
         <div className="w-[200px] h-[200px] mx-auto rounded-full mb-10">

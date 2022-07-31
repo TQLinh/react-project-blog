@@ -21,6 +21,7 @@ import {
   where,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
+import IconQuestion from "../Component/Icon/IconQuestion";
 const SignInPage = () => {
   useEffect(() => {
     document.title = "Personal-post-register";
@@ -125,6 +126,14 @@ const SignInPage = () => {
             <p className="text-base"> Register</p>
           )}
         </Button>
+        <div className="flex items-center justify-end mt-2x gap-x-1 have-account">
+          <Link
+            to={"/forgot-password"}
+            className="flex items-center font-semibold gap-x-1 text-sky-600"
+          >
+            <span> Forgot password</span> <IconQuestion></IconQuestion>
+          </Link>
+        </div>
       </form>
     </AuthenticationPage>
   );

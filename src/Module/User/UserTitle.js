@@ -29,7 +29,7 @@ const UserTitle = ({ data }) => {
           <div className="flex items-center justify-between">
             <span className="capitalize fullname"> {data.fullname}</span>
             <span className="flex items-center font-semibold gap-x-1">
-              Role: {handleRole(data.role)}
+              Role: {handleRole(Number(data.role))}
             </span>
           </div>
           <div className="flex items-center text-base font-semibold py-1x email gap-x-1">
@@ -41,8 +41,8 @@ const UserTitle = ({ data }) => {
         </div>
         <div>
           <div onClick={() => navigate(`/postUser/?id=${data.id}`)}>
-            <button className="px-3x flex gap-x-2 items-center py-1x text-sm hover:translate-x-3x transition-all font-semibold text-slate-600  rounded-md bg-[#1b9cad]">
-              <p> Show post</p> <IconArrow></IconArrow>
+            <button className="flex items-center text-sm font-semibold transition-all rounded-md px-3x gap-x-2 py-1x hover:translate-x-3x text-sky-600 bg-slate-800">
+              <p> Show Post</p> <IconArrow></IconArrow>
             </button>
           </div>
         </div>

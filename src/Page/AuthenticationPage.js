@@ -28,10 +28,10 @@ const AuthenticationPage = ({ children }) => {
 };
 const LogoWeb = () => {
   return (
-    <div className="relative z-20 flex items-center justify-center w-full ">
-      <div className="block w-16 h-16">
+    <div className="relative z-20 flex items-center justify-center w-full gap-x-2 ">
+      <div className="block w-6x h-6x">
         <img
-          srcSet="/logoPen.png 2x"
+          srcSet="/iconb.ico "
           alt="logo item "
           className="object-cover w-full h-full logo"
         />

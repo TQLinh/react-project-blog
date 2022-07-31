@@ -12,6 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import slugify from "slugify";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import LoadingSpinner from "../../Component/Loading/LoadingSpinner";
+import Managementheading from "../ManagementPage/Managementheading";
 const UserCreateCategory = () => {
   const schame = yup.object({
     name: yup.string().required("Plese enter your category name "),
@@ -38,7 +40,6 @@ const UserCreateCategory = () => {
   });
   const watchStatus = watch("status");
   const handleAddCategory = async (values) => {
-    console.log(values);
     const newValues = { ...values };
     newValues.slug = slugify(newValues.title || newValues.slug, {
       lower: true,
@@ -58,14 +59,17 @@ const UserCreateCategory = () => {
       reset({
         name: "",
         slug: "",
-        status: 1,
+        status: 2,
         createAt: new Date(),
       });
     }
   };
   return (
     <div>
-      {" "}
+      <Managementheading
+        title="Create category"
+        desc="Create category for posts"
+      ></Managementheading>
       <form autoComplete="off" onSubmit={handleSubmit(handleAddCategory)}>
         <div className="grid grid-cols-2 mb-10 gap-x-10">
           <div>
@@ -112,8 +116,9 @@ const UserCreateCategory = () => {
             </div>
           </FieldCheckboxes>
         </div>
+
         <Button type="submit" className="mx-auto max-w-[250px]">
-          Add category
+          {!isSubmitting ? "Add category" : <LoadingSpinner></LoadingSpinner>}
         </Button>
       </form>
     </div>

@@ -5,8 +5,8 @@ import { useAuth } from "../../Contexts/auth-context";
 const sidebarLinks = [
   {
     id: 1,
-    title: "Management",
-    link: "management",
+    title: "Message box",
+    link: "/manage/message-box",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -14,12 +14,12 @@ const sidebarLinks = [
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth={2}
       >
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+          d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
         />
       </svg>
     ),

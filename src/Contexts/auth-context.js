@@ -24,11 +24,11 @@
 // export { AuthProvider, useAuth };
 // import { onAuthStateChanged } from "firebase/auth";
 // import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { createContext, useContext, useEffect, useState } from "react";
-import { auth, db } from "../firebase-config/firebase-config";
+// import { onAuthStateChanged } from "firebase/auth";
+// import { collection, onSnapshot, query, where } from "firebase/firestore";
 // import { auth, db } from "../firebase-config/firebase-config";
+// import { auth, db } from "../firebase-config/firebase-config";
+import { createContext, useContext, useEffect, useState } from "react";
 import useLocalStorage from "../Hooks/useLocalStorage";
 const AuthContext = createContext();
 function AuthProvider(props) {

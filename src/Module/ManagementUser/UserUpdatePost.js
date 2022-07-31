@@ -30,6 +30,8 @@ import ReactQuill from "react-quill";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useFirebaseImage from "../../Hooks/useHandleImage";
+import Managementheading from "../ManagementPage/Managementheading";
+import LoadingSpinner from "../../Component/Loading/LoadingSpinner";
 
 const UserUpdatePost = () => {
   const schame = yup.object({
@@ -45,7 +47,7 @@ const UserUpdatePost = () => {
     watch,
     setValue,
     getValues,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -153,6 +155,10 @@ const UserUpdatePost = () => {
   if (!postId) return;
   return (
     <div>
+      <Managementheading
+        title="Update Posts"
+        desc={`Update posts id: ${postId}`}
+      ></Managementheading>
       <form autoComplete="off" onSubmit={handleSubmit(handleUpdatePost)}>
         <div className="grid grid-cols-2 mb-10 gap-x-10">
           <div>
@@ -236,7 +242,7 @@ const UserUpdatePost = () => {
             <label className="font-medium text-black">Status</label>
             <FieldCheckboxes className="flex !flex-row">
               <Radio
-                disabled
+                // disabled
                 name="status"
                 control={control}
                 checked={Number(watchStatus) === postStaus.APPROVED}
@@ -245,7 +251,7 @@ const UserUpdatePost = () => {
                 Approved
               </Radio>
               <Radio
-                disabled
+                // disabled
                 name="status"
                 control={control}
                 checked={Number(watchStatus) === postStaus.PENDING}
@@ -266,7 +272,7 @@ const UserUpdatePost = () => {
           </Field>
         </div>
         <Button type="submit" className={"w-[200px]"}>
-          Update post
+          {isSubmitting ? <LoadingSpinner></LoadingSpinner> : "Update post"}
         </Button>
       </form>
     </div>

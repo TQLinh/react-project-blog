@@ -108,5 +108,24 @@ export const MenuAccount = [
     title: "Create category",
     icon: <ion-icon name="layers"></ion-icon>,
   },
+  {
+    id: 5,
+    url: "/AccountManagement/message",
+    title: "Message Admin",
+    icon: <ion-icon name="chatbox-ellipses-sharp"></ion-icon>,
+  },
+  {
+    id: 6,
+    url: "/",
+    title: "Home",
+    icon: <ion-icon name="home"></ion-icon>,
+  },
+  {
+    id: 7,
+    url: "/signInPage",
+    title: "Log Out",
+    icon: <ion-icon name="log-out"></ion-icon>,
+    onClick: () => {},
+  },
 ];
 export default MenuLink;

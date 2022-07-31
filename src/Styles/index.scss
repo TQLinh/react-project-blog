@@ -34,7 +34,7 @@ div.input:focus + .label,
   color: transparent;
   display: inline-block;
   white-space: nowrap;
-  background-image: linear-gradient(45deg, #c40ce9, #2e5dde, rgb(230, 26, 162));
+  background-image: linear-gradient(4deg, #730ce9, #16cbf4, rgb(135, 26, 230));
   &:not(.logo)::before {
     content: "";
     width: 70px;

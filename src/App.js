@@ -29,6 +29,9 @@ import UserCreatePost from "./Module/ManagementUser/UserCreatePost";
 import UpdateAccount from "./Module/ManagementUser/UpdateAccount";
 import UserCreateCategory from "./Module/ManagementUser/UserCreateCategory";
 import ListPostUser from "./Module/ManagementUser/ListPostUser";
+import MessageAdmin from "./Module/ManagementUser/MessageAdmin";
+import MessageBox from "./Module/MessageBox/MessageBox";
+import ForgotPassword from "./Page/ForgotPassword";
 function App() {
   return (
     <div>
@@ -59,6 +62,10 @@ function App() {
               path="/signInPage"
               element={<SignInPage></SignInPage>}
             ></Route>
+            <Route
+              path="/forgot-password"
+              element={<ForgotPassword></ForgotPassword>}
+            ></Route>
             <Route path="/postUser" element={<UserPosts></UserPosts>}></Route>
 
             <Route path="/*" element={<NotFoundPage></NotFoundPage>}></Route>
@@ -88,8 +95,16 @@ function App() {
                 path="/AccountManagement/update-post"
                 element={<UserUpdatePost></UserUpdatePost>}
               ></Route>
+              <Route
+                path="/AccountManagement/message"
+                element={<MessageAdmin></MessageAdmin>}
+              ></Route>
             </Route>
             <Route element={<ManagementLayout></ManagementLayout>}>
+              <Route
+                path="/manage/message-box"
+                element={<MessageBox></MessageBox>}
+              ></Route>
               <Route
                 path="/manage/user"
                 element={<UserManage></UserManage>}
