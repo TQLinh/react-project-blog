@@ -1,5 +1,6 @@
 @import "./Reset.scss";
 @import "./Management.scss";
+@import "./responsive.scss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -40,11 +41,7 @@ div.input:focus + .label,
     width: 70px;
     height: 4px;
     border-radius: 3px;
-    background-image: linear-gradient(
-      30deg,
-      rgb(17, 177, 245),
-      rgb(247, 251, 13)
-    );
+    background-image: linear-gradient(30deg, rgb(5, 71, 100), rgb(3, 20, 57));
     position: absolute;
     top: 0;
     left: 0;
@@ -56,7 +53,11 @@ div.input:focus + .label,
   transition: 0.5s;
   border-radius: 5px;
   overflow: hidden;
-  background-image: linear-gradient(90deg, #ff00d6, #00e0ff);
+  background-image: linear-gradient(30deg, #361476 20%, #00b3ff, #3b0742);
+}
+.box-content {
+  box-shadow: 1px 1px 3px rgb(10, 173, 255), -1px -1px 3px rgb(189, 8, 255);
+  transition: all 0.25s linear;
 }
 .container {
   width: 100%;
@@ -64,17 +65,10 @@ div.input:focus + .label,
   margin: 0 auto;
   .Posts-list {
     .post {
-      // .img-post {
-      //   // box-shadow: 3px 3px 7px #f226e6, -3px -3px 7px #5021e2;
-      // }
-      box-shadow: 0 0 1px rgba(0, 0, 0, 0.432);
+      box-shadow: 1px 1px 3px rgb(10, 173, 255), -1px -1px 3px rgb(189, 8, 255);
       border-radius: 5px;
       padding: 5px;
       min-width: 300px;
-      transition: all 0.25s linear;
-      &:hover {
-        box-shadow: 0 0 5px rgb(11, 232, 228);
-      }
       .information {
         .fullname {
           font-size: 20px;
@@ -85,27 +79,28 @@ div.input:focus + .label,
           background-clip: text;
           background-image: linear-gradient(
             23deg,
-            rgb(205, 96, 38),
-            rgb(49, 16, 29),
-            rgb(172, 132, 29)
+            rgb(213, 89, 23),
+            rgb(209, 17, 93),
+            rgb(10, 93, 144)
           );
           &::before {
             content: "";
             position: absolute;
             width: 100%;
             border-radius: 3px;
-            height: 3px;
+            height: 2px;
             bottom: 0;
             background-image: linear-gradient(
-              45deg,
-              rgb(111, 111, 109),
-              rgb(35, 5, 32)
+              23deg,
+              rgb(213, 89, 23),
+              rgb(209, 17, 93),
+              rgb(10, 93, 144)
             );
           }
         }
         .email,
         .post-type {
-          color: black;
+          color: rgb(26, 200, 253);
         }
       }
     }
@@ -261,7 +256,20 @@ ion-icon[name="chevron-back-sharp"] {
     border-radius: 5px;
   }
 }
-
+h1 {
+  font-size: 32px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 18px;
+}
+h1,
+h2,
+h3 {
+  font-weight: 900;
+}
 .quill {
   position: relative;
   .ql-toolbar {
@@ -279,5 +287,55 @@ ion-icon[name="chevron-back-sharp"] {
   // }
 }
 .nav {
-  font-family: "Rubik Moonrocks", cursive;
+  // font-family: "Rubik Moonrocks", cursive;
+  font-family: "Oleo Script Swash Caps", cursive;
+}
+.nav::-webkit-scrollbar {
+  height: 0;
+}
+
+.input-cmt:hover .fun_cmt {
+  background-color: #361476;
+}
+.btn-show {
+  --color_tl: #13add4;
+  --color_br: #ec1cda;
+  position: relative;
+  outline: none;
+  box-shadow: -0.5px -0.5px 0px 1px var(--color_br),
+    0.5px 0.5px 0px 1px var(--color_tl);
+  border-radius: 30px;
+  &:hover {
+    color: white;
+  }
+  &::after {
+    content: "";
+    height: 0;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    // background-color: var(--color_bt);
+    background-image: linear-gradient(160deg, var(--color_br), var(--color_tl));
+    z-index: -1;
+    transition: height 0.25s ease-in;
+  }
+  &::before {
+    content: "";
+    height: 0;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    // background-color: var(--color_bt);
+    background-image: linear-gradient(160deg, var(--color_br), var(--color_tl));
+    z-index: -1;
+    transition: height 0.25s ease-in;
+  }
+  &:hover:before {
+    height: 100%;
+  }
+  &:hover::after {
+    height: 100%;
+  }
 }

@@ -5,13 +5,13 @@ const LabelStatus = ({ children, type = "" }) => {
   let styleClassName = "text-gray-500 bg-gray-500";
   switch (type) {
     case "success":
-      styleClassName = "text-green-500 bg-green-500";
+      styleClassName = "bg-sky-900";
       break;
     case "warning":
-      styleClassName = "text-orange-500 bg-orange-500";
+      styleClassName = "bg-orange-700";
       break;
     case "danger":
-      styleClassName = "text-red-500 bg-red-100";
+      styleClassName = "bg-red-700";
       break;
 
     default:
@@ -19,7 +19,7 @@ const LabelStatus = ({ children, type = "" }) => {
   }
   return (
     <span
-      className={`inline-block py-2 px-4 rounded-lg text-sm font-medium${styleClassName}`}
+      className={`inline-block py-2 px-4 rounded-md text-sky-100 text-sm font-bold ${styleClassName}`}
     >
       {children}
     </span>

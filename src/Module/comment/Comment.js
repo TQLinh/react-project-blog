@@ -1,69 +1,66 @@
-import React, { useRef, useState } from "react";
-import { Editor } from "@tinymce/tinymce-react";
-import parse from "html-react-parser";
-const Comment = () => {
-  const [content, setContent] = useState("");
-  const editorRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      setContent(editorRef.current.getContent());
-      console.log(editorRef.current.getContent());
-    }
+import React from "react";
+// import parse from "html-react-parser";
+import { useController, useForm } from "react-hook-form";
+import { useAuth } from "../../Contexts/auth-context";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase-config/firebase-config";
+const Comment = ({ idBlog }) => {
+  const { userInfo } = useAuth();
+  const { avatar, email, fullname, id, role } = userInfo;
+  const { handleSubmit, control, reset } = useForm({
+    mode: "onChange",
+    defaultValues: { comment: "" },
+  });
+  const log = async (values) => {
+    await addDoc(collection(db, "comment"), {
+      ...values,
+      idblog: idBlog,
+      createAt: new Date(),
+      feedback: {},
+      user: { avatar, email, fullname, id, role },
+    });
+    reset({ comment: "" });
   };
+
   return (
-    <>
-      <div>{parse(content)}</div>
-      <Editor
-        // apiKey="no-api-key"
-        // tinymceScriptSrc={
-        //   process.env.pedwqjdlwwed7v5u6ov9knjwrrl6yd2c61e1p7wthpw9tw6o +
-        //   "/tinymce/tinymce.min.js"
-        // }
-        // onEditorChange={newText=>setContent(newText)}
-        textareaName="content"
-        onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue="<p>This is the initial content of the editor.</p>"
-        init={{
-          selector: "textarea",
-          height: 500,
-          menubar: true,
-          plugins: [
-            "advlist",
-            "autolink",
-            "lists",
-            "link",
-            "image",
-            "charmap",
-            "anchor",
-            "searchreplace",
-            "visualblocks",
-            "code",
-            "fullscreen",
-            "insertdatetime",
-            "media",
-            "table",
-            "preview",
-            "help",
-            "wordcount",
-            "emoticons",
-          ],
-          toolbar:
-            "undo redo | blocks | " +
-            "bold italic forecolor | alignleft aligncenter" +
-            "alignright alignjustify | bullist numlist outdent indent | " +
-            "removeformat image emoticons | help",
-          content_style:
-            "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-        }}
-      />
-      <button
-        onClick={log}
-        className="p-2 text-xl font-bold text-white bg-pink-400 rounded-md"
-      >
-        Send
-      </button>
-    </>
+    <div className="max-w-[700px]">
+      <form autoComplete="off" onSubmit={handleSubmit(log)}>
+        <div className="flex items-center border border-gray-300 rounded-md group p-1x">
+          <div className="overflow-hidden rounded-full w-4x h-4x">
+            <img className="" src={avatar} alt="" />
+          </div>
+          <InputCmt control={control} name="comment" className=""></InputCmt>
+        </div>
+        <div className="flex justify-end gap-5 fun_cmt mt-1x">
+          <div
+            onClick={() => reset({ comment: "" })}
+            className="relative flex py-2 text-xl font-bold text-blue-200 rounded-full cursor-pointer px-2x bg-gradient-to-t from-blue-900 to-slate-900"
+          >
+            Hủy
+          </div>
+          <button className="relative flex p-2 text-xl font-bold text-blue-200 rounded-full px-2x bg-gradient-to-t from-blue-900 to-slate-900">
+            Comment
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
+const InputCmt = ({ control, name = "content", className, ...rest }) => {
+  const { field } = useController({
+    control,
+    name,
+    defaultValue: "",
+  });
+  return (
+    <input
+      {...field}
+      {...rest}
+      id="name"
+      placeholder="Enter your comment..."
+      className={` w-full text-[18px] input-cmt font-semibold flex-1 border-b-2 ml-1x text-gray-400 border-gray-400  max-h-[100px] p-1 ${className}`}
+    ></input>
+  );
+};
 export default Comment;

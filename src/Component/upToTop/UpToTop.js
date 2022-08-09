@@ -7,7 +7,7 @@ const UpToTop = () => {
   return (
     <div
       onClick={() => handleUp()}
-      className="fixed z-50 p-2 transition-all rounded right-5 bottom-5 bg-slate-300 hover:bg-purple-500 hover:text-white"
+      className="fixed z-50 p-2 transition-all border-2 rounded border-sky-800 text-sky-800 right-5 bottom-5 hover:bg-sky-800 hover:text-white"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

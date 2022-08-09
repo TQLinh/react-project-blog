@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Layout from "../Component/Layout/Layout";
 import UpToTop from "../Component/upToTop/UpToTop";
+import HomeFooter from "../Module/Home/HomeFooter";
 import HomeNav from "../Module/Home/HomeNav";
 const HomePage = () => {
   return (
@@ -10,6 +11,7 @@ const HomePage = () => {
         <HomeNav></HomeNav>
         <Outlet></Outlet>
       </Layout>
+      <HomeFooter></HomeFooter>
       <UpToTop></UpToTop>
     </div>
   );

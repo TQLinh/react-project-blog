@@ -33,6 +33,7 @@ import { db } from "../../firebase-config/firebase-config";
 import { postStaus } from "../../Component/Contrain";
 import List from "../../Component/dropdown/List";
 import Option from "../../Component/dropdown/Option";
+import LoadingSpinner from "../../Component/Loading/LoadingSpinner";
 const PostAddNew = () => {
   const { userInfo } = useAuth();
   const [categories, setCategories] = useState([]);
@@ -300,7 +301,7 @@ const PostAddNew = () => {
           </Field>
         </div>
         <Button type="submit" className={"w-[200px]"}>
-          Add post new
+          {isSubmitting ? <LoadingSpinner></LoadingSpinner> : " Add post new"}
         </Button>
       </form>
     </div>

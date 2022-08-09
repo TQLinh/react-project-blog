@@ -13,6 +13,7 @@
     "emoji-copy-widget": "^1.0.6",
     "firebase": "^9.8.3",
     "formik": "^2.2.9",
+    "gh-pages": "^4.0.0",
     "html-react-parser": "^1.4.13",
     "infinite-react-carousel": "^1.2.11",
     "prop-types": "^15.8.1",

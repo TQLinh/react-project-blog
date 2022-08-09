@@ -49,7 +49,7 @@ const CategotyManage = () => {
       <Table>
         <thead>
           <tr>
-            <th>Id</th>
+            <th>Stt</th>
             <th>Name</th>
             <th>Slug</th>
             <th>Status</th>
@@ -60,10 +60,10 @@ const CategotyManage = () => {
           {categoryList.length > 0 &&
             categoryList.map((category, index) => (
               <tr key={category.id}>
-                <td>{index}</td>
+                <td>{index + 1}</td>
                 <td>{category.name}</td>
                 <td>
-                  <em className="text-gray-400">{category.slug}</em>
+                  <em className="text-gray-900">{category.slug}</em>
                 </td>
                 <td>
                   {category.status === 1 && (
@@ -74,8 +74,7 @@ const CategotyManage = () => {
                   )}
                 </td>
                 <td>
-                  <div className="flex gap-5 text-gray-400">
-                    <ActionView></ActionView>
+                  <div className="flex gap-5 text-gray-900">
                     <ActionEdit
                       onClick={() =>
                         navigate(`/manage/update-category?id=${category.id}`)

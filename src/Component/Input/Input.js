@@ -18,6 +18,7 @@ const Input = ({ name, type = "text", className, control, ...props }) => {
     />
   );
 };
+
 Input.propTypes = {
   control: Proptypes.object,
   name: Proptypes.string,

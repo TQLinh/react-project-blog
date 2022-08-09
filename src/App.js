@@ -32,6 +32,8 @@ import ListPostUser from "./Module/ManagementUser/ListPostUser";
 import MessageAdmin from "./Module/ManagementUser/MessageAdmin";
 import MessageBox from "./Module/MessageBox/MessageBox";
 import ForgotPassword from "./Page/ForgotPassword";
+import Mailing from "./Module/ManagementUser/Mailing";
+import MailboxBox from "./Module/ManagementUser/MailboxBox";
 function App() {
   return (
     <div>
@@ -99,6 +101,10 @@ function App() {
                 path="/AccountManagement/message"
                 element={<MessageAdmin></MessageAdmin>}
               ></Route>
+              <Route
+                path="/AccountManagement/mailbox"
+                element={<MailboxBox></MailboxBox>}
+              ></Route>
             </Route>
             <Route element={<ManagementLayout></ManagementLayout>}>
               <Route
@@ -140,6 +146,10 @@ function App() {
               <Route
                 path="/manage/update-post"
                 element={<PostUpdate></PostUpdate>}
+              ></Route>
+              <Route
+                path="/manage/mailing"
+                element={<Mailing></Mailing>}
               ></Route>
             </Route>
           </Routes>

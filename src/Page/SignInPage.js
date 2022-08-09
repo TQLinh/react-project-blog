@@ -49,13 +49,13 @@ const SignInPage = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schame),
     mode: "onChange",
   });
   const [userList, setUserList] = useState([]);
-  const { setValue, setUserInfo, userInfo } = useAuth();
+  const { setUserInfo } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,18 +66,11 @@ const SignInPage = () => {
         results.push({ ...doc.data() });
       });
       setUserList(results);
-      // console.log(results);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // console.log(userList);
   const handleLognIn = async (values) => {
-    if (
-      userInfo?.email !== values.email ||
-      userInfo.password !== values.password
-    ) {
-      toast.warning("Tài khoản hoặc mật khẩu ko đúng !");
-    }
     userList.forEach(async (user) => {
       if (user.email === values.email && user.password === values.password) {
         const colRef = collection(db, "users");
@@ -87,6 +80,7 @@ const SignInPage = () => {
           setUserInfo({ id: doc.id, ...doc.data() });
         });
         navigate("/");
+        toast.success("Đăng nhập thành công !");
       } else {
         // toast.warning("Tài khoản hoặc mật khẩu ko đúng !");
         console.log("lỗi");

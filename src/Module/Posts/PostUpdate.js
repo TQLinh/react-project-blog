@@ -31,6 +31,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase-config/firebase-config";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import LoadingSpinner from "../../Component/Loading/LoadingSpinner";
 
 const PostUpdate = () => {
   const schame = yup.object({
@@ -46,7 +47,7 @@ const PostUpdate = () => {
     watch,
     setValue,
     getValues,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -268,7 +269,7 @@ const PostUpdate = () => {
           </Field>
         </div>
         <Button type="submit" className={"w-[200px]"}>
-          Update post
+          {isSubmitting ? <LoadingSpinner></LoadingSpinner> : " Update post"}
         </Button>
       </form>
     </div>

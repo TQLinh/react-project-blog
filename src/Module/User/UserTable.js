@@ -89,7 +89,7 @@ const UserTable = () => {
       <Table>
         <thead>
           <tr>
-            <th>Id</th>
+            <th>Stt</th>
             <th>Info</th>
             <th>Username</th>
             <th className="whitespace-nowrap">Email Address</th>
@@ -104,7 +104,7 @@ const UserTable = () => {
               return (
                 <tr key={user.id}>
                   <td className="whitespace-nowrap" title={user.id}>
-                    {index}
+                    {index + 1}
                   </td>
                   <td className="whitespace-nowrap">
                     <div className="flex items-center gap-x-3">
@@ -118,11 +118,10 @@ const UserTable = () => {
                       />
                       <div className="flex-1">
                         <h3 className="font-semibold">{user.fullname}</h3>
-                        <time className="text-sm text-gray-400">
+                        <time className="text-sm font-bold text-sky-400">
                           {new Date(
                             user.createAt.seconds * 1000
                           ).toLocaleDateString("vi-VI")}
-                          {/* {new Date(user.createAt).toLocaleDateString("vi-VI")} */}
                         </time>
                       </div>
                     </div>

@@ -5,10 +5,10 @@ import PostFeaturedItem from "../Posts/PostFeaturedItem";
 const HomeFeatured = () => {
   const { storedValue: postList } = useToggle();
   return (
-    <div className="mt-5 mb-8">
+    <div className="mt-5 mb-8 lg:px-0 px-1x">
       <div className="container ">
         <Heading className="relative">Featured posts</Heading>
-        <div className="grid justify-between grid-flow-col gap-5 mt-2 main_box">
+        <div className="flex flex-wrap justify-around gap-4x md:gap-3x mt-2 lg:grid lg:grid-cols-3 xl:grid-flow-col sm:!transform-none main_box">
           {postList.length > 0 &&
             postList.slice(0, 3).map((data) => {
               return (

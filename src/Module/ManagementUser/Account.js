@@ -52,7 +52,6 @@ const Account = () => {
   const refImg = useRef();
   const result = refZoom.current !== undefined && refZoom.current.classList;
   const img = refImg.current;
-  console.log("img: ", img);
   refEven.current !== undefined &&
     refEven.current.addEventListener("mousemove", (e) => {
       result.remove("hide");
@@ -91,14 +90,14 @@ const Account = () => {
           </div>
           <div ref={refZoom} className="magnifying_glass hide"></div>
         </div>
-        <div className="flex-1 p-2 bg-blue-200 rounded-sm">
+        <div className="flex-1 p-2 rounded-sm bg-gradient-to-tr from-stone-600 to-gray-700">
           <div>
-            <BoxTitleUser className="!text-4xl font-bold ">
+            <BoxTitleUser className="!text-4xl font-bold text-sky-300">
               <span>Full Name:</span>
               <span>{user?.fullname}</span>
             </BoxTitleUser>
             <BoxTitleUser className="text-xl font-semibold">
-              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+              <span className="px-2 py-1 bg-gray-900 rounded-md text-sky-300">
                 Email:{" "}
               </span>
               <span className="px-2 py-1 bg-white rounded-md">
@@ -106,7 +105,7 @@ const Account = () => {
               </span>
             </BoxTitleUser>
             <BoxTitleUser className="text-xl font-semibold">
-              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+              <span className="px-2 py-1 bg-gray-900 rounded-md text-sky-300">
                 Username:{" "}
               </span>
               <span className="px-2 py-1 bg-white rounded-md">
@@ -114,7 +113,7 @@ const Account = () => {
               </span>
             </BoxTitleUser>
             <BoxTitleUser className="text-xl font-semibold">
-              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+              <span className="px-2 py-1 bg-gray-900 rounded-md text-sky-300">
                 Password:{" "}
               </span>
               <span className="px-2 py-1 bg-white rounded-md">
@@ -122,7 +121,7 @@ const Account = () => {
               </span>
             </BoxTitleUser>
             <BoxTitleUser className="text-xl font-semibold">
-              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+              <span className="px-2 py-1 bg-gray-900 rounded-md text-sky-300">
                 Role:{" "}
               </span>
               <span className="px-2 py-1 bg-white rounded-md">
@@ -130,7 +129,7 @@ const Account = () => {
               </span>
             </BoxTitleUser>
             <BoxTitleUser className="text-xl font-semibold">
-              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+              <span className="px-2 py-1 bg-gray-900 rounded-md text-sky-300">
                 Status:{" "}
               </span>
               <span className="px-2 py-1 bg-white rounded-md">
@@ -138,7 +137,7 @@ const Account = () => {
               </span>
             </BoxTitleUser>
             <BoxTitleUser className="text-xl font-semibold">
-              <span className="px-2 py-1 text-white bg-gray-500 rounded-xl">
+              <span className="px-2 py-1 bg-gray-900 rounded-md text-sky-300">
                 Ngày đăng ký tài khoản:
               </span>
               <span className="px-2 py-1 bg-white rounded-md">{date}</span>
@@ -146,7 +145,7 @@ const Account = () => {
           </div>
           <div className="flex-1 ">
             <span
-              className="flex justify-center flex-1 w-full p-3 mt-2 text-xl font-bold text-center text-sky-900  bg-gradient-to-tl border-b-4 border-blue-500 from-[#1fdbe2] to-[#2882ea] rounded-xl"
+              className="flex justify-center flex-1 w-full p-3 mt-2 text-xl font-bold text-center text-sky-200  bg-gradient-to-tl border-b-4 border-[#065b68] from-[#069eb6] to-[#13355f] rounded-xl"
               onClick={() =>
                 navigate(`/AccountManagement/updateAccount?id=${user?.id}`)
               }

@@ -1,43 +1,12 @@
 import { Slider } from "infinite-react-carousel/lib";
 import React from "react";
+import parse from "html-react-parser";
 import Button from "../../Component/Button/Button";
+import { useToggle } from "../../Contexts/toggle-context";
+import { useNavigate } from "react-router-dom";
 const HomeSlider = () => {
-  const listImage = [
-    {
-      id: 1,
-      url: "https://pastaxi-manager.onepas.vn/content/uploads/articles/2amthuc/nhahang/top10nhahangvietnam/top-10-nha-hang-viet-nam-ngon-noi-tieng-nhat-o-ha-noi-3.jpg",
-
-      title: "Ảnh món ăn Việt Nam",
-      content: "Chia sẻ hướng dẫn nấu món ăn truyền thống của việt nam ",
-    },
-    {
-      id: 2,
-      url: "https://hudse.com.vn/wp-content/uploads/2020/06/Quy-Nh%C6%A1n-.jpg",
-      title: "Chia sẻ trải nghiệm du lịch quy nhơn",
-      content: "3 ngày hai đêm ở Quy Nhơm với các trải nghiệm thú vị ",
-    },
-    {
-      id: 3,
-      url: "https://bloganh.net/wp-content/uploads/2020/08/anh-thumb-1-696x464.jpg",
-      title: "New image",
-      content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum cumque veniam error modi in aut nemo facilis,",
-    },
-    {
-      id: 4,
-      url: "https://i.imgur.com/OTfFpey.png",
-      title: "New image",
-      content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum cumque veniam error modi in aut nemo facilis,",
-    },
-    {
-      id: 5,
-      url: "https://phunugioi.com/wp-content/uploads/2020/03/anh-anime-full-hd-4k-scaled.jpg",
-      title: "New image",
-      content:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum cumque veniam error modi in aut nemo facilis,",
-    },
-  ];
+  const { storedValue } = useToggle();
+  const navigate = useNavigate();
   const settings = {
     dots: false,
     // dotsClass: "!flex",
@@ -62,14 +31,17 @@ const HomeSlider = () => {
   return (
     <div className="mt-1 slider">
       <Slider {...settings}>
-        {listImage.map((img) => (
-          <div className="box-img" key={img.id}>
-            <img className="image" src={img.url} alt="" />
+        {storedValue.slice(1, 6).map((data) => (
+          <div className="box-img" key={data.id}>
+            <img className="image" src={data.image} alt="" />
             <div className="content">
               <div>
-                <h2>{img.title}</h2>
-                <p>{img.content}</p>
-                <Button className="max-w-[200px] font-semibold opacity-0 translate-y-[500px] mx-0 flex justify-start see">
+                <h2>{data.title}</h2>
+                <div>{parse(data.content.slice(0, 400) + "...")}</div>
+                <Button
+                  onClick={() => navigate(`/${data.slug}`)}
+                  className="max-w-[200px] font-semibold opacity-0 translate-y-[500px] mx-0 flex justify-start see"
+                >
                   See more +
                 </Button>
               </div>

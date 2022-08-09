@@ -26,7 +26,7 @@ const AccountManagement = () => {
                 onClick={() => handleLogOut()}
                 className={({ isActive }) =>
                   isActive
-                    ? "bg-gradient-to-tl text-[35px] active from-purple-300 to-pink-300 menu-user"
+                    ? "bg-gradient-to-tl text-[35px] active from-blue-600 to-sky-500 menu-user"
                     : "menu-user"
                 }
               >
@@ -41,7 +41,7 @@ const AccountManagement = () => {
               key={item.id}
               className={({ isActive }) =>
                 isActive
-                  ? "bg-gradient-to-tl text-[35px] active from-purple-300 to-pink-300 menu-user"
+                  ? "bg-gradient-to-tl text-[35px] active from-blue-600 to-sky-500 menu-user"
                   : "menu-user"
               }
             >

@@ -32,6 +32,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import useFirebaseImage from "../../Hooks/useHandleImage";
 import Managementheading from "../ManagementPage/Managementheading";
 import LoadingSpinner from "../../Component/Loading/LoadingSpinner";
+import { useAuth } from "../../Contexts/auth-context";
 
 const UserUpdatePost = () => {
   const schame = yup.object({
@@ -66,6 +67,8 @@ const UserUpdatePost = () => {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
+  const { userInfo, handleAddnotification } = useAuth();
+  const { email, avatar, role } = userInfo;
   const [params] = useSearchParams();
   const imageUrl = getValues("image");
   const postId = params.get("id");
@@ -89,10 +92,17 @@ const UserUpdatePost = () => {
     setImage(imageUrl);
   }, [imageUrl, setImage]);
   const handleUpdatePost = async (values) => {
-    console.log("values: ", values);
     try {
       const colRef = doc(db, "posts", postId);
       await updateDoc(colRef, { ...values, image: image, content: content });
+      if (Number(role) === 3 || Number(role) === 2) {
+        handleAddnotification({
+          createAt: new Date(),
+          email: email,
+          avatar: avatar,
+          title: `<p className="text-orange-400">${email} mới update post: (${postId})</p>`,
+        });
+      }
       toast.success("update succcessflly!");
       Navigate("/AccountManagement/post-list");
     } catch (error) {

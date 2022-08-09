@@ -13,6 +13,7 @@ import { db } from "../../firebase-config/firebase-config";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import LoadingSpinner from "../../Component/Loading/LoadingSpinner";
 const CategoryAddNew = () => {
   const schame = yup.object({
     name: yup.string().required("Plese enter your category name "),
@@ -115,7 +116,7 @@ const CategoryAddNew = () => {
           </FieldCheckboxes>
         </div>
         <Button type="submit" className="mx-auto max-w-[250px]">
-          Add category
+          {isSubmitting ? <LoadingSpinner></LoadingSpinner> : "Create category"}
         </Button>
       </form>
     </div>

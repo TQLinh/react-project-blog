@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,10 +14,12 @@ import { toast } from "react-toastify";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../firebase-config/firebase-config";
+import { useAuth } from "../Contexts/auth-context";
+import { createRef } from "react";
 // import { v4 as uid } from "uuid";
 const RegisterPage = () => {
   const Navigate = useNavigate();
-  // const { setValue } = useAuth();
+  const { handleAddnotification } = useAuth();
   useEffect(() => {
     document.title = "Personal-post-register";
   }, []);
@@ -54,7 +56,6 @@ const RegisterPage = () => {
 
   const handleRegisterForm = async (values) => {
     if (!isValid) return;
-    console.log(values);
     //tạo user với email and pass
     await createUserWithEmailAndPassword(auth, values.email, values.password);
     await updateProfile(auth.currentUser, {
@@ -63,7 +64,6 @@ const RegisterPage = () => {
         "https://images.unsplash.com/photo-1652457726892-fda31af96849?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
     });
     await setDoc(doc(db, "users", auth.currentUser.uid), {
-      // id: uid(),
       fullname: values.fullname,
       email: values.email,
       password: values.password,
@@ -75,10 +75,17 @@ const RegisterPage = () => {
       comment: "",
       createAt: serverTimestamp(),
     });
-
+    handleAddnotification({
+      createAt: new Date(),
+      email: values.email,
+      avatar:
+        "https://images.unsplash.com/photo-1652457726892-fda31af96849?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+      title: `<p className="text-green-400">${values.email} vừa tạo tài khoản</p>`,
+    });
     toast.success(`create user succcess!`);
     Navigate("/signInPage");
   };
+
   return (
     <AuthenticationPage>
       <form

@@ -18,7 +18,7 @@ const Button = ({
         <button
           {...Rest}
           type={type}
-          className={` bg-gradient-to-br from-[#C3EC5C] to-[#E342F5] px-6 rounded-lg  py-2 text-white ${className}`}
+          className={` bg-gradient-to-br text-xl font-semibold from-[#026992] to-[#082333] px-6 rounded-lg py-2 text-[#ffffff] ${className}`}
         >
           {child}
         </button>

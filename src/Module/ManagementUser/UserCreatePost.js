@@ -35,7 +35,8 @@ import Managementheading from "../ManagementPage/Managementheading";
 import LoadingSpinner from "../../Component/Loading/LoadingSpinner";
 
 const UserCreatePost = () => {
-  const { userInfo } = useAuth();
+  const { userInfo, handleAddnotification } = useAuth();
+  const { email, avatar, role } = userInfo;
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
@@ -70,12 +71,9 @@ const UserCreatePost = () => {
   });
   useEffect(() => {
     async function fetchUserData() {
-      if (!userInfo.email) return;
-      // const colRef = doc(db, "users", userInfo.uid);
-      const q = query(
-        collection(db, "users"),
-        where("email", "==", userInfo.email)
-      );
+      if (!email) return;
+      // const colRef = doc(db, "users", uid);
+      const q = query(collection(db, "users"), where("email", "==", email));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         setValue("user", {
@@ -86,7 +84,7 @@ const UserCreatePost = () => {
     }
     fetchUserData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInfo.email]);
+  }, [email]);
   const modules = useMemo(
     () => ({
       toolbar: [
@@ -139,6 +137,14 @@ const UserCreatePost = () => {
         createAt: serverTimestamp(),
         favourite: false,
       });
+      if (Number(role) === 3 || Number(role) === 2) {
+        handleAddnotification({
+          createAt: new Date(),
+          email: email,
+          avatar: avatar,
+          title: `<p className="text-green-400">${email} mới thêm post</p>`,
+        });
+      }
       toast.success("Create new post success");
       reset({
         title: "",
@@ -151,6 +157,7 @@ const UserCreatePost = () => {
         content: "",
         handleresetImage,
       });
+      handleDeleteImage();
       setCategory({});
     } catch (error) {
       console.log(error);

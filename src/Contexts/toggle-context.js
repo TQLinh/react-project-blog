@@ -8,6 +8,7 @@ const ToggleContext = createContext();
 function ToggleProvider(props) {
   const [postList, setPostList] = useState([]);
   const { storedValue, setValue } = useLocalStorage("photos", postList);
+  // console.log("storedValue: ", storedValue);
 
   useEffect(() => {
     async function fetchData() {

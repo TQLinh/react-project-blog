@@ -116,12 +116,18 @@ export const MenuAccount = [
   },
   {
     id: 6,
+    url: "/AccountManagement/mailbox",
+    title: "Mailbox",
+    icon: <ion-icon name="mail-unread"></ion-icon>,
+  },
+  {
+    id: 7,
     url: "/",
     title: "Home",
     icon: <ion-icon name="home"></ion-icon>,
   },
   {
-    id: 7,
+    id: 8,
     url: "/signInPage",
     title: "Log Out",
     icon: <ion-icon name="log-out"></ion-icon>,

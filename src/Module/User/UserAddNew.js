@@ -49,7 +49,7 @@ const UserAddNew = () => {
     watch,
     setValue,
     getValues,
-    formState: { isSubmitting, isValid, errors },
+    formState: { isSubmitting, errors },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schame),

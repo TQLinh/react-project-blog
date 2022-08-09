@@ -12,7 +12,7 @@ import Table from "../../Component/Table/Table";
 import { useToggle } from "../../Contexts/toggle-context";
 import { db } from "../../firebase-config/firebase-config";
 import Managementheading from "../ManagementPage/Managementheading";
-
+import ReactPaginate from "react-paginate";
 const PostManage = () => {
   const [posts, setPosts] = useState([]);
   const { setValue } = useToggle();
@@ -28,6 +28,7 @@ const PostManage = () => {
       setValue(results);
       // console.log(results);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDeletePost = (id) => {
@@ -59,6 +60,17 @@ const PostManage = () => {
         break;
     }
   };
+  // -----------------------------
+  const [currentItems, setCurrentItems] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+  const handlePageClick = (event) => {
+    // const newOffset = (event.selected * itemsPerPage) % items.length;
+    console.log(event);
+    // setItemOffset(newOffset);
+  };
   return (
     <div>
       <Managementheading title="Manage Post" desc="Manage your post">
@@ -68,7 +80,7 @@ const PostManage = () => {
       <Table>
         <thead>
           <tr>
-            <th>id</th>
+            <th>Stt</th>
             <th>Post</th>
             <th>Category</th>
             <th>Author</th>
@@ -79,12 +91,13 @@ const PostManage = () => {
         <tbody>
           {posts.length > 0 &&
             posts.map((data, index) => {
+              const number = index + 1;
               const date = new Date(
                 data.createAt.seconds * 1000
               ).toLocaleDateString("vn-vi");
               return (
-                <tr key={index}>
-                  <td title={data.id}>{index}</td>
+                <tr key={data.id}>
+                  <td title={data.id}>{number}</td>
                   <td>
                     <div className="flex items-center gap-2">
                       <img
@@ -136,6 +149,29 @@ const PostManage = () => {
             })}
         </tbody>
       </Table>
+      <div>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={2}
+          pageCount={18}
+          marginPagesDisplayed={2}
+          previousLabel="< Previous"
+          renderOnZeroPageCount={null}
+          containerClassName={
+            "flex items-center justify-center mt-2x mx-auto gap-x-1x"
+          }
+          pageClassName={"bg-gray-300  rounded-sm  shadow-sm "}
+          pageLinkClassName={"p-1 w-4x h-4x flex justify-center items-center "}
+          activeClassName={"bg-sky-400"}
+          nextClassName={"bg-sky-400 rounded-lg"}
+          nextLinkClassName={"p-2 flex-1 flex text-white font-semibold "}
+          previousClassName={"bg-sky-400 rounded-lg"}
+          previousLinkClassName={"p-2 flex-1 flex text-white font-semibold "}
+        />
+      </div>
+      <div className="h-3x"></div>
     </div>
   );
 };

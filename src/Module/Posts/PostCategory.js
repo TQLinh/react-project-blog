@@ -9,7 +9,7 @@ const PostCategory = ({
 }) => {
   return (
     <div
-      className={`inline-block px-2 py-1 rounded-md text-gray-600 text-sm font-semibold bg-[#d7d7d7] whitespace-nowrap ${className}`}
+      className={`inline-block px-2 py-1 rounded-md text-sky-300 text-sm font-semibold bg-sky-900 whitespace-nowrap ${className}`}
     >
       <Link to={to}>{children}</Link>
     </div>

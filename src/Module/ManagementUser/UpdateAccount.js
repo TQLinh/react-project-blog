@@ -22,7 +22,8 @@ import Managementheading from "../ManagementPage/Managementheading";
 const UpdateAccount = () => {
   const [params] = useSearchParams();
   const Navigate = useNavigate();
-  const { setUserInfo: setUser } = useAuth();
+  const { setUserInfo: setUser, handleAddnotification, userInfo } = useAuth();
+  const { email, avatar, role } = userInfo;
   const schame = yup.object({
     fullname: yup.string().required("please enter your fullname ..."),
     username: yup.string().required("please enter your username ..."),
@@ -52,7 +53,7 @@ const UpdateAccount = () => {
     watch,
     setValue,
     getValues,
-    formState: { isSubmitting, isValid, errors },
+    formState: { isSubmitting, errors },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schame),
@@ -78,11 +79,18 @@ const UpdateAccount = () => {
   const handleUpdateUser = async (values) => {
     try {
       const colRef = doc(db, "users", userId);
-      // if(userId=== )
       await updateDoc(colRef, { ...values, avatar: image });
       setUser({ id: userId, ...values, avatar: image });
       toast.success("update succcessflly!");
       Navigate("/AccountManagement/user");
+      if (Number(role) === 3 || Number(role) === 2) {
+        handleAddnotification({
+          avatar: avatar,
+          email: email,
+          createAt: new Date(),
+          title: `<p className="text-orange-400">${email} update account</p>`,
+        });
+      }
     } catch (error) {
       console.log(error);
       toast.error("error");
@@ -165,7 +173,7 @@ const UpdateAccount = () => {
               <InputPasswordToggle
                 name="password"
                 control={control}
-                type="text"
+                // type="text"
               ></InputPasswordToggle>
             </Field>
             {errors.password && (

@@ -14,6 +14,7 @@ import slugify from "slugify";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import LoadingSpinner from "../../Component/Loading/LoadingSpinner";
 import Managementheading from "../ManagementPage/Managementheading";
+import { useAuth } from "../../Contexts/auth-context";
 const UserCreateCategory = () => {
   const schame = yup.object({
     name: yup.string().required("Plese enter your category name "),
@@ -38,6 +39,8 @@ const UserCreateCategory = () => {
       createAt: new Date(),
     },
   });
+  const { handleAddnotification, userInfo } = useAuth();
+  const { avatar, email, role } = userInfo;
   const watchStatus = watch("status");
   const handleAddCategory = async (values) => {
     const newValues = { ...values };
@@ -51,6 +54,14 @@ const UserCreateCategory = () => {
         ...newValues,
         createAt: serverTimestamp(),
       });
+      if (Number(role) === 3 || Number(role) === 2) {
+        handleAddnotification({
+          createAt: new Date(),
+          email: email,
+          avatar: avatar,
+          title: `<p className="text-green-400">${email} đã tạo thêm category (${values.name})</p>`,
+        });
+      }
       toast.success("create category success");
     } catch (error) {
       toast.error(error.message);

@@ -28,7 +28,9 @@
 // import { collection, onSnapshot, query, where } from "firebase/firestore";
 // import { auth, db } from "../firebase-config/firebase-config";
 // import { auth, db } from "../firebase-config/firebase-config";
+import { addDoc, collection } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
+import { db } from "../firebase-config/firebase-config";
 import useLocalStorage from "../Hooks/useLocalStorage";
 const AuthContext = createContext();
 function AuthProvider(props) {
@@ -39,8 +41,14 @@ function AuthProvider(props) {
     setValue({ ...userInfo });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo]);
-
-  const value = { userInfo, setUserInfo, setValue };
+  const handleAddnotification = async (values) => {
+    const colRef = collection(db, "boxNotification");
+    await addDoc(colRef, {
+      ...values,
+      createAt: new Date(),
+    });
+  };
+  const value = { userInfo, setUserInfo, setValue, handleAddnotification };
   return <AuthContext.Provider value={value} {...props}></AuthContext.Provider>;
 }
 

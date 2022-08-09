@@ -17,7 +17,7 @@ export default function useFirebaseImage(
   const [image, setImage] = useState("");
   if (!setValue || !getValues) return;
   const handleUploadImage = (file) => {
-    console.log(file);
+    // console.log(file);
     const storage = getStorage();
     const storageRef = ref(storage, "images/" + file?.name);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -27,7 +27,7 @@ export default function useFirebaseImage(
       (snapshot) => {
         const progressPrecent =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
+        // console.log("Upload is " + progress + "% done");
         setProress(progressPrecent);
         // eslint-disable-next-line default-case
         switch (snapshot.state) {
@@ -74,7 +74,7 @@ export default function useFirebaseImage(
       });
   };
   const handleresetImage = () => {
-    setImage("");
+    setImage(null);
     setProress(0);
     cb && cb();
   };

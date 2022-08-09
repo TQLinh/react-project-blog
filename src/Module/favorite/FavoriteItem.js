@@ -19,7 +19,7 @@ const FavoriteItem = ({ data, updatepost }) => {
       </div>
       <div className="flex flex-col w-full p-3 ">
         <div className="flex items-center justify-between">
-          <PostCategory className="!text-black">
+          <PostCategory className="!text-sky-300">
             {data?.category.name}
           </PostCategory>
           <PostTime
@@ -38,9 +38,22 @@ const FavoriteItem = ({ data, updatepost }) => {
               onClick={() =>
                 navigate(`/AccountManagement/update-post?id=${data.id}`)
               }
-              className="p-1 font-semibold text-black bg-pink-300 rounded-md"
+              className="p-1 font-semibold text-gray-600 bg-white rounded-md"
             >
-              Update post
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
             </div>
           )}
         </div>
