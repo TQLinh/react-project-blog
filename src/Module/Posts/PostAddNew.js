@@ -28,12 +28,12 @@ import {
   where,
 } from "firebase/firestore";
 import { useAuth } from "../../Contexts/auth-context";
-import useFirebaseImage from "../../Hooks/useHandleImage";
 import { db } from "../../firebase-config/firebase-config";
 import { postStaus } from "../../Component/Contrain";
 import List from "../../Component/dropdown/List";
 import Option from "../../Component/dropdown/Option";
 import LoadingSpinner from "../../Component/Loading/LoadingSpinner";
+import useFirebaseImage2 from "../../Hooks/useUploadImg";
 const PostAddNew = () => {
   const { userInfo } = useAuth();
   const [categories, setCategories] = useState([]);
@@ -43,7 +43,23 @@ const PostAddNew = () => {
     title: yup
       .string()
       .required("please enter title post name")
-      .min(10, "Please enter at least 10 characters"),
+      .min(10, "Please enter at least 10 characters")
+      .max(70, "Vui lòng không nhập quá 70 kí tự"),
+    slug: yup
+      .string()
+      .required("Vui lòng nhập slug")
+      .min(10, "Vui lòng không nhập dưới 10 ký tự")
+      .max(70, "Vui lòng không nhập quá 70 ký tự")
+      .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
+        message: "không đúng định dạng",
+      }),
+    category: yup.string().required("vui lòng chọn category"),
+    image: yup.string().required("Vui lòng upload ảnh ").nullable(),
+    content: yup
+      .string()
+      .required("vui lòng nhập content cho bài ")
+      .min(100, "Không được nhập ít hơn 100 ký tự")
+      .max(1000, "không đươc nhập quá 1000 ký tự"),
   });
   const {
     control,
@@ -54,13 +70,13 @@ const PostAddNew = () => {
     getValues,
     formState: { isSubmitting, errors },
   } = useForm({
-    mode: "onChange",
+    mode: "all",
     defaultValues: {
       title: "",
       slug: "",
       status: 2,
       image: "",
-      category: {},
+      category: "",
       hot: false,
       content: "",
       user: {},
@@ -68,6 +84,11 @@ const PostAddNew = () => {
     },
     resolver: yupResolver(schame),
   });
+  console.log("errors", errors);
+  useEffect(() => {
+    setValue("content", content);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content]);
   useEffect(() => {
     async function fetchUserData() {
       if (!userInfo.email) return;
@@ -112,16 +133,11 @@ const PostAddNew = () => {
         },
       },
     }),
+
     []
   );
-  const {
-    image,
-    handleresetImage,
-    progress,
-    handleDeleteImage,
-    onSelectItem,
-    handleUploadImage,
-  } = useFirebaseImage(setValue, getValues);
+  const { image, handleresetImage, progress, handleDeleteImage, onSelectItem } =
+    useFirebaseImage2(setValue, getValues);
 
   const addPostHandler = async (values) => {
     try {
@@ -129,10 +145,10 @@ const PostAddNew = () => {
       closeValues.slug = slugity(values.slug || values.title, { lower: true });
       closeValues.status = Number(closeValues.status);
       const colRef = collection(db, "posts");
-      await handleUploadImage(closeValues.image);
+      // await handleUploadImage(closeValues.image);
       await addDoc(colRef, {
         ...closeValues,
-        image,
+        image: image,
         content: content,
         categoryid: closeValues.category.id,
         userId: userInfo.id,
@@ -144,14 +160,14 @@ const PostAddNew = () => {
         title: "",
         slug: "",
         status: 2,
-        image: "",
+        image: null,
         category: {},
         hot: false,
         user: {},
         content: "",
         handleresetImage,
       });
-      setCategory({});
+      setCategory("");
     } catch (error) {
       console.log(error);
     } finally {
@@ -173,14 +189,12 @@ const PostAddNew = () => {
       setCategories(result);
     }
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleClickOption = async (item) => {
     const colRef = doc(db, "categories", item.id);
     const docData = await getDoc(colRef);
-    setValue("category", {
-      id: docData.id,
-      ...docData.data(),
-    });
+    setValue("category", `{${docData.data().name}}`);
     setCategory(item);
   };
   const watchHot = watch("hot");
@@ -207,12 +221,15 @@ const PostAddNew = () => {
               <Input control={control} name="slug" type="text"></Input>
               <Label>Slug</Label>
             </Field>
+            {errors.slug && (
+              <p className="text-sm text-red-600">{errors.slug.message}</p>
+            )}
           </div>
         </div>
         <div className="grid grid-cols-2 mb-10 gap-x-10">
           <div>
             <Field>
-              <label className="font-medium text-black">Slug</label>
+              <label className="font-medium text-black">Upload image</label>
               <ImageUpload
                 type="file"
                 name="image"
@@ -222,6 +239,9 @@ const PostAddNew = () => {
                 handleDeleteImage={handleDeleteImage}
               ></ImageUpload>
             </Field>
+            {errors.image && (
+              <p className="text-sm text-red-600">{errors.image.message}</p>
+            )}
           </div>
           <div>
             <Field>
@@ -244,6 +264,9 @@ const PostAddNew = () => {
                 </List>
               </Dropdown>
             </Field>
+            {errors.category && (
+              <p className="text-sm text-red-600">{errors.category.message}</p>
+            )}
           </div>
         </div>
         <div className="mt-2">
@@ -253,12 +276,16 @@ const PostAddNew = () => {
               <div className="mt-1">
                 <ReactQuill
                   // formats={formats}
+                  setValue={setValue("content", content)}
                   modules={modules}
                   theme="snow"
                   value={content}
                   onChange={setContent}
                 />
               </div>
+              {errors.content && (
+                <p className="text-sm text-red-600">{errors.content.message}</p>
+              )}
             </div>
           </Field>
         </div>

@@ -26,7 +26,7 @@ const PostManage = () => {
       });
       setPosts(results);
       setValue(results);
-      // console.log(results);
+      console.log(results);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -118,7 +118,7 @@ const PostManage = () => {
                   </td>
                   <td>
                     <span className="text-base text-gray-900">
-                      {data.category.name}
+                      {data.category.name || data.category}
                     </span>
                   </td>
                   <td>

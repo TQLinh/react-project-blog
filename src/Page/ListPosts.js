@@ -5,7 +5,7 @@ import FavoriteItem from "../Module/favorite/FavoriteItem";
 
 const ListPosts = () => {
   const [data, setData] = useState([]);
-  console.log("data: ", data);
+  // console.log("data: ", data);
   useEffect(() => {
     async function fetchData() {
       const colRef = collection(db, "posts");

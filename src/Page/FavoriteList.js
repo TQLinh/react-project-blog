@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import BallsLoading from "../Component/Loading/BallsLoading";
 import { useToggle } from "../Contexts/toggle-context";
 import ImageNotProduct from "../Images/ImageNotProduct";
 import FavoriteItem from "../Module/favorite/FavoriteItem";
@@ -8,7 +7,7 @@ import FavoriteItem from "../Module/favorite/FavoriteItem";
 const FavoriteList = () => {
   const { storedValue: listFavorite } = useToggle();
   const [Favorite, setFavorite] = useState([]);
-  console.log("Favorite: ", Favorite);
+  // console.log("Favorite: ", Favorite);
   useEffect(() => {
     const data = [];
     listFavorite.forEach((item) => {

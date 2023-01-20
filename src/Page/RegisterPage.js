@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,35 +15,54 @@ import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../firebase-config/firebase-config";
 import { useAuth } from "../Contexts/auth-context";
-import { createRef } from "react";
-// import { v4 as uid } from "uuid";
 const RegisterPage = () => {
   const Navigate = useNavigate();
+  // const [checkPass, setCheckPass] = useState("");
+
   const { handleAddnotification } = useAuth();
   useEffect(() => {
     document.title = "Personal-post-register";
   }, []);
+
   const schame = yup.object({
-    fullname: yup.string().required("please enter your fullname ..."),
+    fullname: yup
+      .string()
+      .required("please enter your fullname ...")
+      .min(10, "Vui lòng nhập tối thiểu 10 ký tự")
+      .max(20, "Vui lòng không nhập quá 20 Ký tự")
+      .trim(),
     email: yup
       .string()
-      .email("plaese enter valid email")
+      .required("please enter your email ...")
+      .min(5, "Please enter at least 5 characters")
+      .max(32, "Vui lòng không nhập quá 20 ký tự")
       .matches(/^[a-z][a-z0-9_.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/, {
-        message: "Email không hợp lệ",
-      })
-      .required("please enter your email ..."),
+        message: "Email không đúng định dạng.",
+      }),
     password: yup
       .string()
+      .required("please enter your password")
       .min(8, "Please enter at least 8 characters")
+      .max(20, "Please enter at leadt 20 charact")
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
         {
           message:
             "Vui long Tối thiểu ít nhất một ký tự viết hoa, một ký tự viết thường, một số và một ký tự đặc biệt",
         }
-      )
-      .required("please enter your useName"),
-    conf_pass: yup.string().required("please confirm password"),
+      ),
+    conf_pass: yup
+      .string()
+      .required("please confirm password")
+      .min(8, "Please enter at least 8 characters")
+      .max(20, "Please enter at leadt 20 charact")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        {
+          message:
+            "Vui long Tối thiểu ít nhất một ký tự viết hoa, một ký tự viết thường, một số và một ký tự đặc biệt",
+        }
+      ),
   });
   const {
     handleSubmit,
@@ -51,10 +70,10 @@ const RegisterPage = () => {
     formState: { errors, isValid, isSubmitting },
   } = useForm({
     resolver: yupResolver(schame),
-    mode: "onChange",
+    mode: "all",
   });
-
   const handleRegisterForm = async (values) => {
+    // setCheckPass(values.password);
     if (!isValid) return;
     //tạo user với email and pass
     await createUserWithEmailAndPassword(auth, values.email, values.password);

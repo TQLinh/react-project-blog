@@ -31,7 +31,7 @@ const Header = () => {
       setBoxNotification(data);
     }
     fetchUser();
-  }, [userInfo.id]);
+  }, [userInfo?.id]);
   return (
     <div className="bg-white shadow-md select-none px-2x lg:px-0">
       <div className="container header_main items-center justify-between flex max-h-[100px]">

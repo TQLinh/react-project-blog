@@ -25,6 +25,7 @@ const UpdateAccount = () => {
   const { setUserInfo: setUser, handleAddnotification, userInfo } = useAuth();
   const { email, avatar, role } = userInfo;
   const schame = yup.object({
+    avatar: yup.string().required("vui lòng chọn avatar"),
     fullname: yup.string().required("please enter your fullname ..."),
     username: yup.string().required("please enter your username ..."),
     email: yup
@@ -76,6 +77,7 @@ const UpdateAccount = () => {
   const watchStatus = watch("status");
   const watchRole = watch("role");
   const userId = params.get("id");
+  console.log("errors:", errors);
   const handleUpdateUser = async (values) => {
     try {
       const colRef = doc(db, "users", userId);
@@ -99,7 +101,7 @@ const UpdateAccount = () => {
   async function deleteAvatar() {
     const colRef = doc(db, "users", userId);
     await updateDoc(colRef, { avatar: "" });
-    toast.success("update succcessflly!");
+    // toast.success("update succcessflly!");
   }
   useEffect(() => {
     setImage(imageUrl);

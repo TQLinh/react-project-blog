@@ -31,23 +31,24 @@ const HomeSlider = () => {
   return (
     <div className="mt-1 slider">
       <Slider {...settings}>
-        {storedValue.slice(1, 6).map((data) => (
-          <div className="box-img" key={data.id}>
-            <img className="image" src={data.image} alt="" />
-            <div className="content">
-              <div>
-                <h2>{data.title}</h2>
-                <div>{parse(data.content.slice(0, 400) + "...")}</div>
-                <Button
-                  onClick={() => navigate(`/${data.slug}`)}
-                  className="max-w-[200px] font-semibold opacity-0 translate-y-[500px] mx-0 flex justify-start see"
-                >
-                  See more +
-                </Button>
+        {storedValue.length > 0 &&
+          storedValue.slice(1, 6).map((data) => (
+            <div className="box-img" key={data.id}>
+              <img className="image" src={data.image} alt="" />
+              <div className="content">
+                <div>
+                  <h2>{data.title}</h2>
+                  <div>{parse(data.content.slice(0, 400) + "...")}</div>
+                  <Button
+                    onClick={() => navigate(`/${data.slug}`)}
+                    className="max-w-[200px] font-semibold opacity-0 translate-y-[500px] mx-0 flex justify-start see"
+                  >
+                    See more +
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </Slider>
     </div>
   );

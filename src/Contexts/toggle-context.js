@@ -6,8 +6,9 @@ import useLocalStorage from "../Hooks/useLocalStorage";
 const ToggleContext = createContext();
 
 function ToggleProvider(props) {
-  const [postList, setPostList] = useState([]);
-  const { storedValue, setValue } = useLocalStorage("photos", postList);
+  // const [postList, setPostList] = useState([]);
+  // console.log("postList: ", postList);
+  const { storedValue, setValue } = useLocalStorage("photos", []);
   // console.log("storedValue: ", storedValue);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ function ToggleProvider(props) {
         docs.forEach((doc) => {
           dataList.push({ id: doc.id, ...doc.data() });
         });
-        setPostList(dataList);
+        setValue(dataList);
         // setValue(dataList);
       });
     }
@@ -32,11 +33,9 @@ function ToggleProvider(props) {
       return photo;
     });
     setValue(updateFavourite);
-    setPostList(updateFavourite);
   };
   const value = {
     storedValue,
-    postList,
     setValue,
     toggleFavourite,
   };

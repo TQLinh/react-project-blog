@@ -22,18 +22,33 @@ import { useAuth } from "../../Contexts/auth-context";
 
 const UserUpdate = () => {
   const schame = yup.object({
-    fullname: yup.string().required("please enter your fullname ..."),
-    username: yup.string().required("please enter your username ..."),
+    avatar: yup.string().required("Vui lòng upload image").nullable(),
+    fullname: yup
+      .string()
+      .required("please enter your fullname ...")
+      .min(10, "Vui lòng nhập tối thiểu 10 ký tự")
+      .max(20, "Vui lòng không nhập quá 20 Ký tự")
+      .trim(),
+    username: yup
+      .string()
+      .required("please enter your username ...")
+      .min(5, "Vui lòng nhập tối thiểu 5 kí tự.")
+      .max(20, "Vui lòng không nhập quá 20 kí tự.")
+      .trim(),
     email: yup
       .string()
-      .email("plaese enter valid email")
+      .required("please enter your email ...")
+      .min(5, "Please enter at least 5 characters")
+      .max(32, "Vui lòng không nhập quá 20 ký tự")
       .matches(/^[a-z][a-z0-9_.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/, {
-        message: "Email không hợp lệ",
+        message: "Email không đúng định dạng.",
       })
-      .required("please enter your email ..."),
+      .trim(),
     password: yup
       .string()
+      .required("please enter your password")
       .min(8, "Please enter at least 8 characters")
+      .max(20, "Please enter at leadt 20 charact")
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
         {
@@ -41,7 +56,7 @@ const UserUpdate = () => {
             "Vui long Tối thiểu ít nhất một ký tự viết hoa, một ký tự viết thường, một số và một ký tự đặc biệt",
         }
       )
-      .required("please enter your useName"),
+      .trim(),
   });
   const {
     control,
@@ -50,7 +65,7 @@ const UserUpdate = () => {
     watch,
     setValue,
     getValues,
-    formState: { isSubmitting, isValid, errors },
+    formState: { isSubmitting, errors },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schame),
@@ -90,10 +105,10 @@ const UserUpdate = () => {
       toast.error("error");
     }
   };
+  console.log("errors:", errors);
   async function deleteAvatar() {
     const colRef = doc(db, "users", userId);
     await updateDoc(colRef, { avatar: "" });
-    toast.success("update succcessflly!");
   }
   useEffect(() => {
     setImage(imageUrl);
@@ -127,6 +142,9 @@ const UserUpdate = () => {
             onChange={onSelectItem}
             handleDeleteImage={handleDeleteImage}
           ></ImageUpload>
+          {errors.avatar && (
+            <p className="text-sm text-red-600">{errors.avatar.message}</p>
+          )}
         </div>
         <div className="form-layout">
           <div>

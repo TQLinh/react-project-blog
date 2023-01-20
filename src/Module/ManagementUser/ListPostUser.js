@@ -9,9 +9,9 @@ const ListPostUser = () => {
   const { userInfo } = useAuth();
   const userId = userInfo?.id;
   const { storedValue } = useToggle();
-  console.log("storedValue: ", storedValue);
+  // console.log("storedValue: ", storedValue);
   const [postUser, setPostUser] = useState([]);
-  console.log("postUser: ", postUser);
+  // console.log("postUser: ", postUser);
   useEffect(() => {
     const dataList = [];
     storedValue.forEach((data) => {

@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import React from "react";
 import RegisterPage from "./Page/RegisterPage";
 import SignInPage from "./Page/SignInPage";
 import HomePage from "./Page/HomePage";
@@ -34,9 +33,10 @@ import MessageBox from "./Module/MessageBox/MessageBox";
 import ForgotPassword from "./Page/ForgotPassword";
 import Mailing from "./Module/ManagementUser/Mailing";
 import MailboxBox from "./Module/ManagementUser/MailboxBox";
+import { Suspense } from "react";
 function App() {
   return (
-    <div>
+    <Suspense fallback={"Loading..."}>
       <AuthProvider>
         <ToggleProvider>
           <Routes>
@@ -155,12 +155,7 @@ function App() {
           </Routes>
         </ToggleProvider>
       </AuthProvider>
-      {/* <img
-          className="w-10 h-10 rounded-full"
-          src="https://i.pinimg.com/originals/00/de/24/00de2407a0f7e716e4a85286bc3ee9f6.gif"
-          alt=""
-        /> */}
-    </div>
+    </Suspense>
   );
 }
 
