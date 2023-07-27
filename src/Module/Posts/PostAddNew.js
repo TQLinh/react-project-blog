@@ -38,6 +38,7 @@ const PostAddNew = () => {
   const { userInfo } = useAuth();
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
+  console.log("category: ", category);
   const [content, setContent] = useState("");
   const schame = yup.object({
     title: yup
@@ -55,11 +56,10 @@ const PostAddNew = () => {
       }),
     category: yup.string().required("vui lòng chọn category"),
     image: yup.string().required("Vui lòng upload ảnh ").nullable(),
-    content: yup
-      .string()
-      .required("vui lòng nhập content cho bài ")
-      .min(100, "Không được nhập ít hơn 100 ký tự")
-      .max(1000, "không đươc nhập quá 1000 ký tự"),
+    // content: yup
+    //   .string()
+    //   .required("vui lòng nhập content cho bài ")
+    //   .min(100, "Không được nhập ít hơn 100 ký tự"),
   });
   const {
     control,
@@ -82,7 +82,7 @@ const PostAddNew = () => {
       user: {},
       favourite: false,
     },
-    resolver: yupResolver(schame),
+    // resolver: yupResolver(schame),
   });
   console.log("errors", errors);
   useEffect(() => {
@@ -136,10 +136,17 @@ const PostAddNew = () => {
 
     []
   );
-  const { image, handleresetImage, progress, handleDeleteImage, onSelectItem } =
-    useFirebaseImage2(setValue, getValues);
+  const {
+    image,
+    handleresetImage,
+    progress,
+    handleDeleteImage,
+    onSelectItem,
+    handleUploadImage,
+  } = useFirebaseImage2(setValue, getValues);
 
   const addPostHandler = async (values) => {
+    console.log("values: ", values);
     try {
       const closeValues = { ...values };
       closeValues.slug = slugity(values.slug || values.title, { lower: true });
@@ -150,7 +157,16 @@ const PostAddNew = () => {
         ...closeValues,
         image: image,
         content: content,
-        categoryid: closeValues.category.id,
+        // categoryid: closeValues.category.id,
+        userId: userInfo.id,
+        createAt: serverTimestamp(),
+        favourite: false,
+      });
+      console.log("res", {
+        ...closeValues,
+        image: image,
+        content: content,
+        categoryid: category.id,
         userId: userInfo.id,
         createAt: serverTimestamp(),
         favourite: false,
@@ -165,8 +181,9 @@ const PostAddNew = () => {
         hot: false,
         user: {},
         content: "",
-        handleresetImage,
+        // handleresetImage,
       });
+      handleDeleteImage();
       setCategory("");
     } catch (error) {
       console.log(error);

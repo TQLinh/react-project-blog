@@ -122,6 +122,7 @@ const UserCreatePost = () => {
   } = useFirebaseImage(setValue, getValues);
 
   const addPostHandler = async (values) => {
+    console.log("values: ", values);
     try {
       const closeValues = { ...values };
       closeValues.slug = slugity(values.slug || values.title, { lower: true });
